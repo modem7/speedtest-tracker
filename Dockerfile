@@ -43,7 +43,7 @@ RUN --mount=type=cache,id=aptcache,target=/var/cache/apt,sharing=locked \
     # Install Cron file
     echo "MAILTO=\"\"\n* * * * * webuser /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel
 
-    # Clean up 
+    # Clean up
     apt-get clean
     rm -rf /tmp/* \
            /var/tmp/* \
@@ -56,5 +56,5 @@ COPY --link --from=build --chown=webuser:webgroup /var/www/html /var/www/html
 
 VOLUME /config
 
-HEALTHCHECK --timeout=5s --interval=10s --start-period=30s \
+HEALTHCHECK --timeout=5s --interval=10s --start-period=120s \
   CMD curl -fSs http://localhost/ping || exit 1
